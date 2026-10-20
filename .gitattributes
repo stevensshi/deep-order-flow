@@ -1,0 +1,2 @@
+protocols/*.md -text
+configs/protocol/*.csv -text

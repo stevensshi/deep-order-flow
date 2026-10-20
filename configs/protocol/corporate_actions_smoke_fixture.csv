@@ -1,0 +1,5 @@
+ticker,event,ratio,effective_date,status,source_url,quote
+FAST,forward_split,2:1,2019-10-10,confirmed,,SMOKE FIXTURE not a real event: confirmed and before the test-role day 2019-10-18 so FAST is left out
+UAL,forward_split,2:1,2019-10-10,pending,,SMOKE FIXTURE not a real event: not confirmed so UAL stays in
+UAL,ticker_change,,2019-12-31,confirmed,,SMOKE FIXTURE not a real event: effective after the test-role day so UAL stays in
+UAL,cash_dividend,,2019-10-10,confirmed,,SMOKE FIXTURE not a real event: an event type that leaves no stock out

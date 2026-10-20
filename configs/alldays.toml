@@ -1,0 +1,82 @@
+# The pre-registered split: fourteen training days, two validation days, three test days.
+# The corporate-action file pinned below is in configs/protocol/. The protocol document pinned below, under its
+# original name and sha256, is not in this repository (protocols/ holds an edited copy with another hash), so
+# dof.deep refuses the test days of this split.
+include = ["models.toml"]
+
+[split]
+name = "real"
+train_days = ["2019-01-30", "2019-03-27", "2019-07-30", "2019-08-30", "2019-10-18", "2019-10-30", "2019-12-30",
+              "2020-01-30", "2021-07-13", "2021-08-13", "2025-11-28", "2025-12-08", "2025-12-09", "2025-12-10"]
+recent_days = ["2025-11-28", "2025-12-08", "2025-12-09", "2025-12-10"]
+valid_days = ["2025-12-11", "2025-12-12"]
+test_days = ["2026-05-15", "2026-05-18", "2026-06-12"]
+reused_from = {GLIBA = "2025-01-01", FB = "2025-01-01"}
+price_rule_parts = ["valid"]
+
+[calendar]
+half_days = {"2025-11-28" = "13:00"}
+
+[data]
+universe = "universe_115.csv"
+
+[protocol]
+corporate_actions = "protocol/corporate_actions_20251210_20260612.csv"
+corporate_actions_sha256 = "df7ef9adb2c52d4af1d112e5ae8a326d2408956ebe43e1d953e1b034f9f6ea4a"
+ca_columns = ["ticker", "event", "effective_date", "status"]
+ca_excluding = ["forward_split", "reverse_split", "ticker_change", "ticker_reused"]
+ca_confirmed = "confirmed"
+document = "protocol/preregistration.md"
+document_sha256 = "babfaf66c72cd5627f6b28cf271c12c8837078722216f9c91570bafd157607e2"
+test_days_need_document = true
+
+[features]
+convention = "cks"
+dedupe = true
+history = 100
+latency_ns = 10000000
+horizons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+gap_days = 300
+ratio_range = [0.6, 1.6]
+
+[train]
+batch_size = 256
+check_steps = 317214
+max_checks = 50
+patience = 5
+adam_betas = [0.9, 0.999]
+eval_batch = 512
+restore_best = true
+fit_order = ["LSTM-MLP-OF-recent", "LSTM-MLP-OF-alldays", "CNN-LSTM-OF-alldays"]
+
+[ridge]
+lambdas = [0.001, 0.01, 0.1, 1.0, 10.0]
+chunk_rows = 16384
+
+[fits.LSTM-MLP-OF-recent]
+arch = "LSTM-MLP-OF"
+optimizer = "adam"
+lr = 1e-5
+eps = 1e-7
+days = "recent"
+
+[fits.LSTM-MLP-OF-alldays]
+arch = "LSTM-MLP-OF"
+optimizer = "adam"
+lr = 1e-5
+eps = 1e-7
+days = "all"
+
+[fits.CNN-LSTM-OF-alldays]
+arch = "CNN-LSTM-OF"
+optimizer = "keras_adam"
+lr = 3e-5
+eps = 1e-7
+days = "all"
+setting_source = "CNN-LSTM-OF-lr3e-5-eps1e-7"
+
+[linear.Ridge-OF-alldays]
+days = "all"
+
+[linear.Ridge-OF-recent]
+days = "recent"

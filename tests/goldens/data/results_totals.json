@@ -1,0 +1,84 @@
+{
+ "format": 2,
+ "recipe_sha256": "5f649aa5a90aceedcdaca5d2c32760f654fea3d72fd813d4dcae63331a089603",
+ "totals": {
+  "adjacent/far": {
+   "cells": 11480,
+   "fsum_sse": "0x1.faa9c787f2fd5p+24",
+   "fsum_sst": "0x1.fc49f7b5c8b75p+24",
+   "sources": 4
+  },
+  "adjacent/fit_valid": {
+   "cells": 3920,
+   "fsum_sse": "0x1.920a59e6a869cp+21",
+   "fsum_sst": "0x1.976cb60d05a60p+21",
+   "sources": 4
+  },
+  "adjacent/reference": {
+   "cells": 2940,
+   "fsum_sse": "0x1.72f8c2f9c5c75p+19",
+   "fsum_sst": "0x1.7b622609ed5bcp+19",
+   "sources": 3
+  },
+  "adjacent/test": {
+   "cells": 3920,
+   "fsum_sse": "0x1.efebbc50a1531p+19",
+   "fsum_sst": "0x1.f73424bd25c1dp+19",
+   "sources": 4
+  },
+  "alldays/fit_valid": {
+   "cells": 9800,
+   "fsum_sse": "0x1.781daae104c48p+23",
+   "fsum_sst": "0x1.7db463e6ea3aep+23",
+   "sources": 5
+  },
+  "alldays/test": {
+   "cells": 14350,
+   "fsum_sse": "0x1.47f7ef2c5d15cp+25",
+   "fsum_sst": "0x1.486fc3ffdbbfap+25",
+   "sources": 5
+  },
+  "decay/decay": {
+   "cells": 43440,
+   "fsum_sse": "0x1.1611e91baa007p+26",
+   "fsum_sst": "0x1.10cd58a7cb49ep+26",
+   "sources": 4344
+  },
+  "decay/left_out": {
+   "cells": 0,
+   "fsum_sse": "0x0.0p+0",
+   "fsum_sst": "0x0.0p+0",
+   "sources": 66
+  },
+  "earlier/test": {
+   "cells": 13800,
+   "fsum_sse": "0x1.a62f7de9d152cp+20",
+   "fsum_sst": "0x1.a626f0842e7fap+20",
+   "sources": 4
+  },
+  "earlier/valid": {
+   "cells": 4600,
+   "fsum_sse": "0x1.222961a21fd0fp+19",
+   "fsum_sst": "0x1.220ea65071ce7p+19",
+   "sources": 4
+  },
+  "seeds/ensemble": {
+   "cells": 14490,
+   "fsum_sse": "0x1.f8affca238c3ap+24",
+   "fsum_sst": "0x1.fca2a2c51ac47p+24",
+   "sources": 6
+  },
+  "seeds/fit_valid": {
+   "cells": 11760,
+   "fsum_sse": "0x1.c070653908685p+23",
+   "fsum_sst": "0x1.ca0bab1519138p+23",
+   "sources": 6
+  },
+  "seeds/test": {
+   "cells": 17220,
+   "fsum_sse": "0x1.88b6917ac7b8bp+25",
+   "fsum_sst": "0x1.8a1fb7ffd47f9p+25",
+   "sources": 6
+  }
+ }
+}

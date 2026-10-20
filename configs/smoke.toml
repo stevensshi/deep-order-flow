@@ -1,0 +1,77 @@
+# A small split made of training days of the pre-registered split: two stocks, five days.
+include = ["models.toml"]
+
+[split]
+name = "smoke"
+train_days = ["2019-01-30", "2019-03-27", "2019-07-30"]
+recent_days = ["2019-07-30"]
+valid_days = ["2019-08-30"]
+test_days = ["2019-10-18"]
+symbols = ["UAL", "FAST"]
+reused_from = {}
+price_rule_parts = ["valid"]
+
+[calendar]
+half_days = {"2025-11-28" = "13:00"}
+
+[data]
+universe = "universe_115.csv"
+
+[protocol]
+corporate_actions = "protocol/corporate_actions_smoke_fixture.csv"
+corporate_actions_sha256 = "189defa893f01d740c2da2a241d5831f7d55a5f54abce9cdb5f724d5cf402686"
+ca_columns = ["ticker", "event", "effective_date", "status"]
+ca_excluding = ["forward_split", "reverse_split", "ticker_change", "ticker_reused"]
+ca_confirmed = "confirmed"
+test_days_need_document = false
+
+[features]
+convention = "cks"
+dedupe = true
+history = 100
+latency_ns = 10000000
+horizons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+gap_days = 300
+ratio_range = [0.6, 1.6]
+
+[train]
+batch_size = 256
+check_steps = 200
+max_checks = 2
+patience = 5
+adam_betas = [0.9, 0.999]
+eval_batch = 512
+restore_best = true
+fit_order = ["LSTM-MLP-OF-recent", "LSTM-MLP-OF-alldays", "CNN-LSTM-OF-alldays"]
+
+[ridge]
+lambdas = [0.001, 0.01, 0.1, 1.0, 10.0]
+chunk_rows = 16384
+
+[fits.LSTM-MLP-OF-recent]
+arch = "LSTM-MLP-OF"
+optimizer = "adam"
+lr = 1e-5
+eps = 1e-7
+days = "recent"
+
+[fits.LSTM-MLP-OF-alldays]
+arch = "LSTM-MLP-OF"
+optimizer = "adam"
+lr = 1e-5
+eps = 1e-7
+days = "all"
+
+[fits.CNN-LSTM-OF-alldays]
+arch = "CNN-LSTM-OF"
+optimizer = "keras_adam"
+lr = 3e-5
+eps = 1e-7
+days = "all"
+setting_source = "CNN-LSTM-OF-lr3e-5-eps1e-7"
+
+[linear.Ridge-OF-alldays]
+days = "all"
+
+[linear.Ridge-OF-recent]
+days = "recent"

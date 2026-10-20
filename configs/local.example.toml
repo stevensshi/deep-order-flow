@@ -1,0 +1,30 @@
+# Machine settings: copy this file outside the repository, fill in the paths, and pass it with --local PATH (or
+# set DOF_LOCAL_CONFIG). Paths are relative to the local file's folder, or absolute. None of these settings enters
+# the identity of a result. Every key is shown at its default; a commented key is absent by default.
+[machine]
+book_root = "path/to/itch_book"         # per-day folders of order-book tables (python -m dof.lob build-day)
+device = "cpu"                           # "cpu" or "cuda"
+torch_threads = 0                        # 0: torch's own default
+loader_workers = 0                       # processes that read training batches (0: in the fitting process)
+loader_prefetch = 4                      # batches each loader process reads ahead
+progress_every = 500                     # steps between two writes of progress.json
+# gpu_memory_limit_bytes = 0             # absent: no cap on the CUDA allocator
+cudnn_benchmark = true
+cudnn_allow_tf32 = true
+matmul_allow_tf32 = false
+deterministic = false                    # torch.use_deterministic_algorithms
+compact_store = false                    # true: training records from the compact store (Linux only)
+compact_min_available_after = 4294967296   # bytes of MemAvailable that must remain after the store is loaded
+compact_min_cgroup_room_after = 4294967296 # bytes that must remain under the cgroup's memory.high
+# disk_guard_path = "path/to/volume"     # absent: no free-space check
+disk_floor_gb = 150                      # a fit or a scoring stops below this many GiB free on disk_guard_path
+build_floor_gb = 160                     # the cache build stops if it would leave less than this
+
+[machine.cache.smoke]
+train = "path/to/smoke_cache/train"
+eval = "path/to/smoke_cache/eval"
+# compact = "path/to/smoke_cache/compact"   # absent: the folder "compact" beside "train"
+
+[machine.cache.real]
+train = "path/to/real_cache/train"
+eval = "path/to/real_cache/eval"

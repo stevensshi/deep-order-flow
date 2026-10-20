@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deep-order-flow"
+version = "0.4.0.dev0"
+description = "Nasdaq ITCH 5.0 order books, order-flow features, linear baselines and deep forecasting models"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11,<3.12"
+dependencies = ["numpy>=2.0,<2.7", "pandas>=2.2,<3", "pyarrow>=15", "scipy>=1.11"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+deep = ["torch>=2.4"]
+compact = ["zstandard>=0.22"]
+
+[project.scripts]
+dof-lob = "dof.lob.cli:main"
+dof-deep = "dof.deep.cli:main"
+dof-experiments = "dof.experiments.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# src is deliberately not listed: it comes from PYTHONPATH here, or from an install on a clean machine, so a
+# copy of the package earlier on PYTHONPATH (a mutation test) is the one that is tested.
+pythonpath = ["tests/goldens"]
+addopts = "-p no:cacheprovider"
+markers = [
+    "local: needs data that is not in the repository (paths from DOF_* environment variables)",
+    "slow: takes minutes",
+    "golden: compares against recorded goldens (runs only with DOF_GOLDENS=1)",
+]

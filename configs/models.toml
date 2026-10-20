@@ -1,0 +1,67 @@
+# Architectures of Kolm, Turiel and Westray (2023), section 2.2, Tables 1 and 2. Input: (batch, 100, input_dim), oldest row first.
+[models.LSTM-OF]
+family = "lstm"
+input = "of"
+input_dim = 20
+units = 150
+layers = 1
+init = "keras"
+precision = "float32"
+
+[models.CNN-LSTM-OF]
+family = "cnn_lstm"
+input = "of"
+input_dim = 20
+filters = 32
+inception_filters = 64
+lstm_units = 64
+leaky_slope = 0.01
+init = "keras"
+precision = "float32"
+
+[models.LSTM-MLP-OF]
+family = "lstm_mlp"
+input = "of"
+input_dim = 20
+units = 120
+hidden = 128
+init = "keras"
+precision = "float32"
+
+[models.LSTM3-OF]
+family = "lstm"
+input = "of"
+input_dim = 20
+units = 150
+layers = 3
+init = "keras"
+precision = "amp"
+
+[models.MLP-OF]
+family = "mlp"
+input = "of"
+input_dim = 20
+hidden = [500, 500, 100]
+init = "keras"
+precision = "float32"
+
+[models.LSTM-OFI]
+family = "lstm"
+input = "ofi"
+input_dim = 10
+units = 150
+layers = 1
+init = "keras"
+precision = "float32"
+
+[models.Transformer-OF]
+family = "transformer"
+input = "of"
+input_dim = 20
+d_model = 32
+heads = 4
+layers = 1
+ff = 64
+dropout = 0.1
+init = "torch"
+precision = "float32"

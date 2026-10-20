@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# Run outputs, local data, caches and local settings: never published
+/runs/
+/data/
+/cache/
+/local.toml
+configs/local.toml
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
