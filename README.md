@@ -2,7 +2,7 @@
 
 **Deep order flow on Nasdaq: forecast power across models and across years**
 
-Steven Shi · 2026-10-20 · a replication of Kolm, Turiel and Westray (2023) on Nasdaq TotalView-ITCH 5.0 data
+Steven Shi · 2026-10-20 · a benchmark of deep networks (LSTM, LSTM-MLP, CNN-LSTM) against a linear reference for forecasting mid-price changes from order-flow imbalance, on Nasdaq TotalView-ITCH 5.0 data
 
 See [Limitations and disclosures](#limitations-and-disclosures) for the data licence, the scope and the validity of every number below.
 
@@ -124,7 +124,7 @@ The 2019 numbers come from `results/reports/earlier.md`, the decay numbers from 
 - Every day of the decay measurement is a second look for this feature family, and the stock set changes from row to row. The decay tables describe; they do not test.
 - 2026-06-12 is not a first look for this feature family: an earlier experiment had scored per-stock ridge models on it. 2026-05-15 and 2026-05-18 are first looks for the main run; the decay and adjacent-days runs scored them afterwards.
 - The learning rate 3e-5 and epsilon 1e-7 of `CNN-LSTM-OF-alldays` come from an earlier stage, where they were chosen after that stage's test days had been scored. The choice used none of the 2026 test days.
-- Sample selection uses information from the future: a row is a sample only if its label window holds no trading halt, no crossed book and no session end. This is the replication convention; a live trader cannot know that a halt is coming.
+- Sample selection uses information from the future: a row is a sample only if its label window holds no trading halt, no crossed book and no session end. This is the sample definition of every run here; a live trader cannot know that a halt is coming.
 - R² is measured against the stock-day's own mean label, which a trader does not know during the day.
 - The order-flow sign rule of every run is that of Cont, Kukanov and Stoikov (2014): a bid price drop contributes minus the previous size at that level. Kolm, Turiel and Westray (2023, eqs. 2–3) print minus the current size. The library offers both rules (`current_size`, `cks`); no run in this repository's tables uses the paper's.
 - Stocks move together, so the standard errors are too small.
